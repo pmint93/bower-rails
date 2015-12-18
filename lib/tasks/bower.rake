@@ -15,7 +15,7 @@ namespace :bower do
     task :deployment, :options do |_, args|
       args.with_defaults(:options => '')
       BowerRails::Performer.perform false do |bower|
-        sh "#{bower} install #{args[:options]}"
+        sh "#{bower} install #{args[:options]} #{BowerRails.bower_flags}"
       end
     end
 
@@ -23,7 +23,7 @@ namespace :bower do
     task :development, :options do |_, args|
       args.with_defaults(:options => '')
       BowerRails::Performer.perform do |bower|
-        sh "#{bower} install #{args[:options]}"
+        sh "#{bower} install #{args[:options]} #{BowerRails.bower_flags}"
       end
     end
 
@@ -31,7 +31,7 @@ namespace :bower do
     task :production, :options do |_, args|
       args.with_defaults(:options => '')
       BowerRails::Performer.perform do |bower|
-        sh "#{bower} install -p #{args[:options]}"
+        sh "#{bower} install -p #{args[:options]} #{BowerRails.bower_flags}"
       end
     end
   end
@@ -40,14 +40,14 @@ namespace :bower do
   task :update, :options do |_, args|
     args.with_defaults(:options => '')
     BowerRails::Performer.perform do |bower|
-      sh "#{bower} update #{args[:options]}"
+      sh "#{bower} update #{args[:options]} #{BowerRails.bower_flags}"
     end
   end
 
   desc "List bower components"
   task :list do
     BowerRails::Performer.perform false do |bower|
-      sh "#{bower} list"
+      sh "#{bower} list #{BowerRails.bower_flags}"
     end
   end
 
@@ -56,7 +56,7 @@ namespace :bower do
     task :prune, :options do |_, args|
       args.with_defaults(:options => '')
       BowerRails::Performer.perform do |bower|
-        sh "#{bower} update #{args[:options]} && #{bower} prune #{args[:options]}"
+        sh "#{bower} update #{args[:options]} #{BowerRails.bower_flags} && #{bower} prune #{args[:options]} #{BowerRails.bower_flags}"
       end
     end
   end
@@ -79,7 +79,7 @@ namespace :bower do
     desc "Clear the bower cache ('bower cache clean')"
     task :clean do
       BowerRails::Performer.perform false do |bower|
-        sh "#{bower} cache clean"
+        sh "#{bower} cache clean #{BowerRails.bower_flags}"
       end
     end
   end
